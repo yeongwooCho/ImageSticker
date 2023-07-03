@@ -6,6 +6,7 @@ import 'package:gesture_detector/component/footer.dart';
 import 'package:gesture_detector/component/main_app_bar.dart';
 import 'package:gesture_detector/model/sticker_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -102,7 +103,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onDeleteItem() {}
 
-  void onEmoticonTap(int id) {}
+  void onEmoticonTap(int index) {
+    // TODO: add 하지 않고 굳이 이렇게 하는 이유는 뭘까?
+    setState(() {
+      stickers = {
+        ...stickers,
+        StickerModel(
+          id: Uuid().v4(), // 스티커의 고유 ID
+          imgPath: 'asset/img/emotion_$index.png',
+        )
+      };
+    });
+  }
 
   void onTransform() {}
 }
