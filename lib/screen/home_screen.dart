@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gesture_detector/component/main_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          renderBody(),
           Positioned(
             // MainAppBar를 좌, 우, 위 끝에 정렬
             top: 0.0,
@@ -28,12 +31,32 @@ class _HomeScreenState extends State<HomeScreen> {
               onDeleteItem: onDeleteItem,
             ),
           ),
-          Center(
-            child: Text('asfd'),
-          ),
         ],
       ),
     );
+  }
+
+  Widget renderBody() {
+    if (image != null) {
+      return Positioned.fill(
+        child: InteractiveViewer(
+          child: Image.file(
+            File(image!.path),
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    } else {
+      return Center(
+        child: TextButton(
+          style: TextButton.styleFrom(
+            primary: Colors.grey,
+          ),
+          onPressed: onPickImage,
+          child: Text('이미지 선택하기'),
+        ),
+      );
+    }
   }
 
   void onPickImage() async {
