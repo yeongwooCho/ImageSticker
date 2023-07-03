@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gesture_detector/component/emoticon_sticker.dart';
 import 'package:gesture_detector/component/footer.dart';
 import 'package:gesture_detector/component/main_app_bar.dart';
+import 'package:gesture_detector/model/sticker_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   XFile? image;
+  Set<StickerModel> stickers = {};
+  String? selectedId;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +54,26 @@ class _HomeScreenState extends State<HomeScreen> {
     if (image != null) {
       return Positioned.fill(
         child: InteractiveViewer(
-          child: Image.file(
-            File(image!.path),
-            fit: BoxFit.cover,
+          child: Stack(
+            fit: StackFit.expand, // 크기 최대로 늘리기
+            children: [
+              Image.file(
+                File(image!.path),
+                fit: BoxFit.cover, // 이미지 최대 공간 차지하도록 하기
+              ),
+              // stickers의 모든 데이터를 Stack에 뿌려버림
+              ...stickers.map(
+                // 기본 위치는 중앙
+                (sticker) => Center(
+                  child: EmoticonSticker(
+                    key: ObjectKey(sticker.id),
+                    onTransform: onTransform,
+                    imgPath: sticker.imgPath,
+                    isSelected: selectedId == sticker.id,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -82,4 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void onDeleteItem() {}
 
   void onEmoticonTap(int id) {}
+
+  void onTransform() {}
 }
