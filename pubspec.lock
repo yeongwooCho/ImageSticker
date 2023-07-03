@@ -124,10 +124,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver
-      sha256: be812580c7a320d3bf583af89cac6b376f170d48000aca75215a73285a3223a0
+      sha256: "467de169167b5c4e1ddde65395e4653c336a82f760b6700ea295085b7f2dd248"
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.1"
+    version: "2.0.2"
   image_picker:
     dependency: "direct main"
     description:
