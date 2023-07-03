@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gesture_detector/component/main_app_bar.dart';
+import 'package:image_picker/image_picker.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void onPickImage() {}
+  void onPickImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      this.image = image;
+    });
+  }
 
   void onSaveImage() {}
 
