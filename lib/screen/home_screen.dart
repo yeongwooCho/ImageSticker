@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gesture_detector/component/footer.dart';
 import 'package:gesture_detector/component/main_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,6 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
               onDeleteItem: onDeleteItem,
             ),
           ),
+          if (image != null)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Footer(
+                onEmoticonTap: onEmoticonTap,
+              ),
+            ),
         ],
       ),
     );
@@ -53,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             primary: Colors.grey,
           ),
           onPressed: onPickImage,
-          child: Text('이미지 선택하기'),
+          child: const Text('이미지 선택하기'),
         ),
       );
     }
@@ -70,4 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void onSaveImage() {}
 
   void onDeleteItem() {}
+
+  void onEmoticonTap(int id) {}
 }
