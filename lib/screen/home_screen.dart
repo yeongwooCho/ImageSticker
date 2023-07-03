@@ -68,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 (sticker) => Center(
                   child: EmoticonSticker(
                     key: ObjectKey(sticker.id),
-                    onTransform: onTransform,
+                    onTransform: () {
+                      onTransform(sticker.id);
+                    },
                     imgPath: sticker.imgPath,
                     isSelected: selectedId == sticker.id,
                   ),
@@ -110,11 +112,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ...stickers,
         StickerModel(
           id: Uuid().v4(), // 스티커의 고유 ID
-          imgPath: 'asset/img/emotion_$index.png',
+          imgPath: 'asset/img/emoticon_${index}.png',
         )
       };
     });
   }
 
-  void onTransform() {}
+  void onTransform(String id) {
+    setState(() {
+      selectedId = id;
+    });
+  }
 }
