@@ -103,7 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onSaveImage() {}
 
-  void onDeleteItem() {}
+  void onDeleteItem() {
+    // selected sticker 제외한 sticker 만 저장
+    setState(() {
+      stickers = stickers.where((sticker) => sticker.id != selectedId).toSet();
+    });
+  }
 
   void onEmoticonTap(int index) {
     // TODO: add 하지 않고 굳이 이렇게 하는 이유는 뭘까?
